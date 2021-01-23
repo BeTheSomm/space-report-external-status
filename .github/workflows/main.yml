@@ -1,0 +1,20 @@
+on: [push]
+
+jobs:
+  test-notify:
+    runs-on: ubuntu-latest
+    name: A job to say hello
+    steps:
+    - name: Hello world action step
+      id: hello
+      uses: htdahms/space-report-external-status@v1
+      with:
+        client-id: ${{ secrets.CLIENT_ID }}
+        client-secret: ${{ secrets.CLIENT_SECRET }}
+        space-service-url: ${{ secrets.TOKEN_HOST }}
+        project-id: ${{ secrets.PROJECT_ID }}
+        repository-name: ${{ secrets.REPOSITORY_NAME }}
+        job-status: ${{ job.status }}
+    # Use the output from the `hello` step
+    # - name: Get the output time
+    #   run: echo "The time was ${{ steps.hello.outputs.time }}"
