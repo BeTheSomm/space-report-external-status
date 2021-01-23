@@ -17,8 +17,16 @@ jobs:
           npm run all
   test: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
+    name: A job to say hello
     steps:
-      - uses: actions/checkout@v2
-      - uses: ./
-        with:
-          milliseconds: 1000
+    - uses: actions/checkout@v2
+    - name: Test Report
+      id: hello
+      uses: ./
+      with:
+        client-id: ${{ secrets.CLIENT_ID }}
+        client-secret: ${{ secrets.CLIENT_SECRET }}
+        space-service-url: ${{ secrets.SPACE_SERVICE_URL }}
+        project-id: ${{ secrets.PROJECT_ID }}
+        repository-name: ${{ secrets.REPOSITORY_NAME }}
+        job-status: ${{ job.status }}

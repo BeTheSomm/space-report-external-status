@@ -1,11 +1,36 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Jetbrains Space - Report External Status'
+description: 'An Action to report the builds status of Github Actions to your Space project.'
+author: 'Heinrich Dahms'
 inputs:
-  milliseconds: # change this
+  client-id:
+    description: 'Somm Application ID'
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    default: ''
+  client-secret:
+    description: 'Somm Application Secret'
+    required: true
+    default: ''
+  space-service-url:
+    description: 'Your Space URL, for example: example.jetbrains.space'
+    required: true
+    default: ''
+  project-id:
+    description: 'Your Space project ID'
+    required: true
+    default: ''
+  repository-name:
+    description: 'Your Space repository name'
+    required: true
+    default: ''
+  job-status:
+    description: 'The current status of your Github Job'
+    required: true
+    default: ''
 runs:
   using: 'node12'
-  main: 'dist/index.js'
+  pre: 'dist/prerun/index.js'
+  main: 'dist/main/index.js'
+
+# outputs:
+#   time: # id of output
+#     description: 'The time we greeted you'
