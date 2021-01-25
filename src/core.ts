@@ -38,7 +38,6 @@ export async function updateReportStatus(
   accessToken: ClientOAuth2.Token,
   status: ExecutionStatus
 ): Promise<void> {
-  const GITHUB_WORKFLOW = process.env.GITHUB_WORKFLOW
   const GITHUB_REF = process.env.GITHUB_REF
   const GITHUB_SHA = process.env.GITHUB_SHA
   const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL
@@ -47,6 +46,8 @@ export async function updateReportStatus(
   const spaceServiceURL = core.getInput('space-service-url')
   const projectID = core.getInput('project-id')
   const repositoryName = core.getInput('repository-name')
+  const taskName = '[iOS] Run All Tests'
+  const taskId = 'iOS-run-all-tests'
 
   const url = `https://${spaceServiceURL}/api/http/projects/id:${projectID}/repositories/${repositoryName}/revisions/${GITHUB_SHA}/external-checks`
   console.log(`ReportStatus.url: ${url}`)
@@ -56,8 +57,8 @@ export async function updateReportStatus(
     executionStatus: status,
     url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}`,
     externalServiceName: 'Github Actions',
-    taskName: GITHUB_WORKFLOW,
-    taskId: GITHUB_RUN_ID,
+    taskName,
+    taskId,
     timestamp: Date.now()
   }
 

@@ -9507,7 +9507,6 @@ function getSpaceAccessToken() {
 exports.getSpaceAccessToken = getSpaceAccessToken;
 function updateReportStatus(accessToken, status) {
     return __awaiter(this, void 0, void 0, function* () {
-        const GITHUB_WORKFLOW = process.env.GITHUB_WORKFLOW;
         const GITHUB_REF = process.env.GITHUB_REF;
         const GITHUB_SHA = process.env.GITHUB_SHA;
         const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL;
@@ -9516,6 +9515,8 @@ function updateReportStatus(accessToken, status) {
         const spaceServiceURL = core.getInput('space-service-url');
         const projectID = core.getInput('project-id');
         const repositoryName = core.getInput('repository-name');
+        const taskName = '[iOS] Run All Tests';
+        const taskId = 'iOS-run-all-tests';
         const url = `https://${spaceServiceURL}/api/http/projects/id:${projectID}/repositories/${repositoryName}/revisions/${GITHUB_SHA}/external-checks`;
         console.log(`ReportStatus.url: ${url}`);
         const data = {
@@ -9523,8 +9524,8 @@ function updateReportStatus(accessToken, status) {
             executionStatus: status,
             url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}`,
             externalServiceName: 'Github Actions',
-            taskName: GITHUB_WORKFLOW,
-            taskId: GITHUB_RUN_ID,
+            taskName,
+            taskId,
             timestamp: Date.now()
         };
         try {

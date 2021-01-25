@@ -1,6 +1,6 @@
 {
   "name": "space-report-external-status",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Jetbrains Space Github action to report status of job to Space PR.",
   "main": "lib/main.js",
